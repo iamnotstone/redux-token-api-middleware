@@ -60,7 +60,7 @@ import { createStore, applyMiddleware } from 'redux'
 import reducer from './reducers'
 
 // example refresh token action
-const refreshToken = (token) => {
+const refreshAction = (token) => {
   return {
     [CALL_TOKEN_API]: {
       type: 'REFRESH_TOKEN',
@@ -72,7 +72,7 @@ const refreshToken = (token) => {
 }
 
 const config = {
-  refreshAction: refreshToken
+  refreshAction: refreshAction
 }
 
 const apiTokenMiddleware = createTokenApiMiddleware(config)

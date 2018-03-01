@@ -102,3 +102,15 @@
       <filesize>0</filesize>
       <tcpflow startime='2018-03-01T21:03:42.184388Z' endtime='2018-03-01T21:04:15.927085Z' src_ipn='0.0.0.0' dst_ipn='0.0.0.0' mac_daddr='00:00:03:04:00:06' packets='2' srcport='3000' dstport='52386' family='10' />
     </fileobject>
+    <fileobject>
+      <filesize>0</filesize>
+      <tcpflow startime='2018-03-01T21:03:42.184379Z' endtime='2018-03-01T21:05:03.502628Z' src_ipn='0.0.0.0' dst_ipn='0.0.0.0' mac_daddr='00:00:03:04:00:06' packets='5' srcport='52386' dstport='3000' family='10' />
+    </fileobject>
+    <fileobject>
+      <filesize>0</filesize>
+      <tcpflow startime='2018-03-01T21:03:42.184447Z' endtime='2018-03-01T21:05:03.502718Z' src_ipn='0.0.0.0' dst_ipn='0.0.0.0' mac_daddr='00:00:03:04:00:06' packets='5' srcport='52388' dstport='3000' family='10' />
+    </fileobject>
+    <fileobject>
+      <filesize>0</filesize>
+      <tcpflow startime='2018-03-01T21:03:42.184496Z' endtime='2018-03-01T21:05:03.502763Z' src_ipn='0.0.0.0' dst_ipn='0.0.0.0' mac_daddr='00:00:03:04:00:06' packets='5' srcport='52390' dstport='3000' family='10' />
+    </fileobject>

@@ -9,7 +9,7 @@
     "build:watch": "watch 'npm run build' ./src/",
     "prepublish": "npm run build",
     "test": "mocha --compilers js:babel-core/register --recursive ./test",
-    "start": "node examples/server.js"
+    "start": "nodemon --watch examples/ --ignore examples/*.xml  examples/server.js"
   },
   "babel": {
     "presets": [
@@ -61,6 +61,7 @@
     "express-urlrewrite": "^1.2.0",
     "html-webpack-plugin": "^2.14.0",
     "json-loader": "^0.5.4",
+    "jsonwebtoken": "^5.7.0",
     "lodash": "^4.6.1",
     "mocha": "^2.4.5",
     "nodemon": "^1.17.1",

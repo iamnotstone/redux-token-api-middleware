@@ -107,7 +107,7 @@ const loginUser = (userId, password) => {
     [CALL_TOKEN_API]: {
       type: 'LOGIN_USER',
       payload: {
-        endpoint
+        endpoint,
       }
     } 
   }

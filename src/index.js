@@ -33,7 +33,11 @@ function responseToCompletion(response) {
   if (contentType && startsWith(contentType, 'application/json')) {
     return response.json();
   }
-  return response.text();
+  else if(response.redirected){
+    return {redirected: true, url: response.url}
+  }
+  else
+    return response.text();
 }
 
 function createAsyncAction(type, step, payload) {

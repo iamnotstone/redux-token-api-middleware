@@ -6,7 +6,8 @@ var webpackDevMiddleware = require('webpack-dev-middleware')
 var WebpackConfig = require('./webpack.config')
 var bodyParser = require('body-parser')
 var app = express()
-var passport = require('passport')
+var jwt = require('jsonwebtoken')
+
 
 app.use(webpackDevMiddleware(webpack(WebpackConfig), {
   publicPath: '/__build__/',
@@ -30,9 +31,12 @@ app.use(express.static(__dirname))
 
 
 var passport = require('./configPassport')(app)
-app.get('/login', passport.authenticate('local', {failureRedirect: '/', session: false}),function(req, res){
+app.get('/login', passport.authenticate('local', 
+  {failureRedirect: '/', session: false}),function(req, res){
+  var token = jwt.sign(req.user, 'secret')
   res.json({
-    result: 'success'
+    result: 'success',
+    token: token
   })
 })
 

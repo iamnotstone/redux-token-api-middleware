@@ -9,7 +9,7 @@
     "build:watch": "watch 'npm run build' ./src/",
     "prepublish": "npm run build",
     "test": "mocha --compilers js:babel-core/register --recursive ./test",
-    "start": "nodemon --watch examples/ --ignore examples/*.xml  examples/server.js"
+    "start": "node examples/server.js"
   },
   "babel": {
     "presets": [
@@ -72,6 +72,7 @@
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
     "redux-logger": "^3.0.6",
+    "redux-saga": "^0.16.0",
     "rimraf": "^2.5.2",
     "watch": "^0.17.1",
     "webpack": "^4.0.1",

@@ -97,14 +97,14 @@ export function removeToken(key) {
 export function checkTokenFreshness(token) {
   let tokenPayload = jwt.decode(token);
   let expiry = moment.unix(tokenPayload.exp);
-  return expiry.diff(moment(), 'seconds') > MIN_TOKEN_LIFESPAN;
+  return expiry.diff(moment(), 'seconds') < MIN_TOKEN_LIFESPAN;
 }
 
 export function shouldRequestNewToken() {
   if (!this.refreshToken) {
     return false;
   }
-  const token = retrieveToken();
+  const token = this.retrieveToken();
   return token
     ? checkTokenFreshness(token)
     : false;
@@ -276,7 +276,7 @@ export class TokenApiService {
   }
 
   call() {
-    if (this.shouldRequestNewToken()) {
+    if (this.shouldRequestNewToken() && !this.apiAction.noRefresh) {
       const refreshAction = this.refreshAction(this.token);
       const refreshApiAction = refreshAction[CALL_TOKEN_API];
       const refreshApiActionMeta = refreshApiAction.meta || {};
@@ -318,6 +318,7 @@ export function actionAsPromise(action, dispatch, config) {
     return Promise.reject('not an API action!')
   }
 }
+
 
 export function createTokenApiMiddleware(config={}) {
 

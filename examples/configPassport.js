@@ -5,7 +5,9 @@ var passport = require('passport'),
   ExtractJwt = require('passport-jwt').ExtractJwt
 
 var opts = {}
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+//opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('JWT')
+
 opts.secretOrKey = 'secret'
 
 

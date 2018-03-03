@@ -33,11 +33,39 @@ app.use(express.static(__dirname))
 var passport = require('./configPassport')(app)
 app.get('/login', passport.authenticate('local', 
   {failureRedirect: '/', session: false}),function(req, res){
-  var token = jwt.sign(req.user, 'secret')
+  var userInfo = Object.assign({}, req.user, {password: undefined})
+  var token = jwt.sign(userInfo, 'secret', {expiresIn: 60})
   res.json({
     result: 'success',
     token: token
   })
+})
+
+app.get('/basic', passport.authenticate('jwt', {session: false}), function(req, res){
+  if(req.user)
+    res.json({
+      result: 'success'
+    })
+  else
+    res.json({
+      result: 'failed'
+    })
+})
+
+
+app.get('/token', passport.authenticate('jwt', {session: false}), function(req, res){
+  if(req.user){
+    var userInfo = Object.assign({}, req.user, {password: undefined})
+    var token = jwt.sign(userInfo, 'secret', {expiresIn: 60})
+    res.json({
+      result: 'success',
+      token: token
+    })
+  }
+  else
+    res.status(401).json({
+      result: 'failed'
+    })
 })
 
 app.listen(3000, function () {

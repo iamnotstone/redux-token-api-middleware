@@ -94,10 +94,10 @@ export function removeToken(key) {
   localStorage.removeItem(key);
 }
 
-export function checkTokenFreshness(token) {
+export function checkTokenFreshness(token, minTokenLifespan) {
   let tokenPayload = jwt.decode(token);
   let expiry = moment.unix(tokenPayload.exp);
-  return expiry.diff(moment(), 'seconds') < MIN_TOKEN_LIFESPAN;
+  return expiry.diff(moment(), 'seconds') < minTokenLifespan;
 }
 
 export function shouldRequestNewToken() {
@@ -106,7 +106,7 @@ export function shouldRequestNewToken() {
   }
   const token = this.retrieveToken();
   return token
-    ? checkTokenFreshness(token)
+    ? checkTokenFreshness(token, this.minTokenLifespan)
     : false;
 }
 

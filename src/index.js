@@ -320,8 +320,9 @@ export function actionAsPromise(action, dispatch, config) {
 }
 
 
-export function createTokenApiMiddleware(config={}) {
-
+export function createTokenApiMiddleware(config) {
+  if(!config)
+    config = {}
   return store => next => action => {
 
     let apiAction = action[config.actionKey]

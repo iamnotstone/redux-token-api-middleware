@@ -40,7 +40,7 @@ function responseToCompletion(response) {
     return response.text();
 }
 
-function createAsyncAction(type, step, payload) {
+export function createAsyncAction(type, step, payload) {
   let action = {
     type: `${type}_${step}`,
     payload: payload,
@@ -65,7 +65,7 @@ function createCompletionAction(type, payload) {
 }
 
 function createFailureAction(type, error) {
-  return createAsyncAction(type, 'FAILED', new TypeError(error));
+  return createAsyncAction(type, 'UNCOMPLETED', new TypeError(error));
 }
 
 export function storeToken(key, response) {

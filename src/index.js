@@ -249,14 +249,14 @@ export class TokenApiService {
   }
 
   getApiFetchArgsFromActionPayload(payload, token=null, authenticate=true) {
-    let { headers, endpoint, method, body, credentials } = payload;
+    let { headers, endpoint, method, body, credentials, isAuth } = payload;
     if (isUndefined(method)) {
       method = 'GET';
     }
     headers = Object.assign({
       'Content-Type': 'application/json'
     }, headers);
-    if (token && authenticate) {
+    if (token && authenticate && isAuth) {
       (
         { headers, endpoint, body } = this.addTokenToRequest(
           headers, endpoint, body, token
@@ -276,7 +276,7 @@ export class TokenApiService {
   }
 
   call() {
-    if (this.shouldRequestNewToken() && !this.apiAction.noRefresh) {
+    if (this.shouldRequestNewToken() && !this.apiAction.noRefresh ) {
       const refreshAction = this.refreshAction(this.token);
       const refreshApiAction = refreshAction[CALL_TOKEN_API];
       const refreshApiActionMeta = refreshApiAction.meta || {};

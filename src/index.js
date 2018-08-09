@@ -132,25 +132,10 @@ export class TokenApiService {
     this.preProcessRequest = this.config.preProcessRequest;
     this.refreshToken = this.config.refreshToken || false;
     this.shouldRequestNewToken = this.configOrDefault('shouldRequestNewToken');
-    this.isAddAuthForEveryRequest = this.config.isAddAuthForEveryRequest || false
     // bind where needed
     this.storeToken = this.storeToken.bind(this, this.tokenStorageKey);
     this.retrieveToken = this.retrieveToken.bind(this, this.tokenStorageKey);
     // this.failureAction = this.configOrNotImplemented('failureAction');
-    if(this.isAddAuthForEveryRequest)
-      this.addAuthToDefaultHttpHeader()
-  }
-
-  addAuthToDefaultHttpHeader(){
-    let token = this.retrieveToken()
-    if(token){
-      XMLHttpRequest.prototype.realSend = XMLHttpRequest.prototype.send;
-      var newSend = function(vData) {
-        this.setRequestHeader('Authorization', `JWT ${token}`);
-        this.realSend(vData);
-      };
-      XMLHttpRequest.prototype.send = newSend;
-    }
   }
 
   configOrDefault(key) {
@@ -305,11 +290,6 @@ export class TokenApiService {
         .then(this.checkResponseIsOk)
         .then(responseToCompletion)
         .then(this.storeToken)
-        .then((token) => {
-          if(this.isAddAuthForEveryRequest)
-            this.addAuthToDefaultHttpHeader()
-          return token
-        })
         .then(token => {
           this.curriedApiCallMethod(token);
         })

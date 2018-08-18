@@ -1,12 +1,10 @@
-
 import startsWith from 'lodash.startswith';
 import map from 'lodash.map';
 import isUndefined from 'lodash.isundefined';
 import isFunction from 'lodash.isfunction';
 import isArrayLikeObject from 'lodash.isarraylikeobject';
 import omitBy from 'lodash.omitby';
-import jwt from 'jsonwebtoken';
-import moment from 'moment';
+import jwtDecode from 'jwt-decode'
 import fetch from 'isomorphic-fetch';
 
 export const CALL_TOKEN_API = Symbol('Call API');
@@ -96,9 +94,10 @@ export function removeToken(key) {
 }
 
 export function checkTokenFreshness(token, minTokenLifespan) {
-  let tokenPayload = jwt.decode(token);
-  let expiry = moment.unix(tokenPayload.exp);
-  return expiry.diff(moment(), 'seconds') < minTokenLifespan;
+  let tokenPayload = jwtDecode(token)
+  let expS = tokenPayload.exp
+  let curS = new Date().getTime() * 0.001
+  return expS - curS < minTokenLifespan
 }
 
 export function shouldRequestNewToken() {

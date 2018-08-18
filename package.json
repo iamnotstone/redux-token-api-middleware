@@ -2,14 +2,16 @@
   "name": "redux-token-api-middleware",
   "version": "0.8.4",
   "description": "Redux middleware for calling APIs with token-based auth",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "lint": "eslint src",
     "build": "rimraf lib && babel src --out-dir lib",
     "build:watch": "watch 'npm run build' ./src/",
     "prepublish": "npm run build",
     "test": "mocha --compilers js:babel-core/register --recursive ./test",
-    "start": "node examples/server.js"
+    "start": "node examples/server.js",
+    "build:dev": "rimraf dist && webpack --mode development --config webpack.config.js",
+    "build:prod": "rimraf dist && webpack --mode production --config webpack.config.js"
   },
   "babel": {
     "presets": [
@@ -33,16 +35,13 @@
   "license": "MIT",
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
-    "jsonwebtoken": "^5.7.0",
+    "jwt-decode": "^2.2.0",
     "lodash.isarraylikeobject": "^4.2.0",
     "lodash.isfunction": "^3.0.8",
     "lodash.isundefined": "^3.0.1",
     "lodash.map": "^4.6.0",
     "lodash.omitby": "^4.6.0",
-    "lodash.startswith": "^4.2.1",
-    "moment": "^2.12.0",
-    "moment-timezone": "^0.5.2",
-    "redux": "^3.3.1"
+    "lodash.startswith": "^4.2.1"
   },
   "devDependencies": {
     "babel": "^6.23.0",
@@ -71,6 +70,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.16.0",
     "rimraf": "^2.5.2",

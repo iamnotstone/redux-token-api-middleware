@@ -249,7 +249,7 @@ export class TokenApiService {
   }
 
   getApiFetchArgsFromActionPayload(payload, token=null, authenticate=true) {
-    let { headers, endpoint, method, body, credentials, isAuth } = payload;
+    let { headers, endpoint, method, body, credentials, isAuth, mode } = payload;
     if (isUndefined(method)) {
       method = 'GET';
     }
@@ -271,7 +271,7 @@ export class TokenApiService {
       )
     }
     return [
-      endpoint, omitBy({method, body, credentials, headers}, isUndefined)
+      endpoint, omitBy({method, body, credentials, headers, mode}, isUndefined)
     ];
   }
 
